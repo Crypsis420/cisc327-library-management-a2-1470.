@@ -20,8 +20,12 @@
         {% for book in books %}
         <tr>
             <td>{{ book.id }}</td>
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
+            <td style="width:320px;">
+                <span style="display:block; white-space:nowrap; overflow-x:auto;">{{ book.title }}</span>
+              </td>
+              <td style="width:240px;">
+                <span style="display:block; white-space:nowrap; overflow-x:auto;">{{ book.author }}</span>
+              </td>
             <td>{{ book.isbn }}</td>
             <td>
                 {% if book.available_copies > 0 %}

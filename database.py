@@ -199,3 +199,22 @@ def update_borrow_record_return_date(patron_id: str, book_id: int, return_date: 
     except Exception as e:
         conn.close()
         return False
+    
+def get_borrow_records_by_patron(patron_id: str) -> List[Dict]:
+    """Get full borrow history"""
+    conn = get_db_connection()
+    try:
+        rows = conn.execute(
+            '''
+            SELECT br.*, b.title, b.author
+            FROM borrow_records br
+            JOIN books b ON b.id = br.book_id
+            WHERE br.patron_id = ?
+            ORDER BY datetime(br.borrow_date) DESC
+            ''',
+            (patron_id,)
+        ).fetchall()
+        return [dict(r) for r in rows]
+    except Exception as e:
+        conn.close()
+        return False
