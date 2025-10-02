@@ -56,5 +56,4 @@ def test_borrow_max_5_books():
     # Try a 6th
     sixth = _insert_book(title="Sixth", isbn="5555555555599", copies=1)
     success, message = borrow_book_by_patron("123456", sixth)
-    assert success is True
-    assert "Successfully borrowed" in message
+    assert success is False

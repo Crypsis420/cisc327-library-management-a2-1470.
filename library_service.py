@@ -42,6 +42,10 @@ def add_book_to_catalog(title: str, author: str, isbn: str, total_copies: int) -
     if len(isbn) != 13:
         return False, "ISBN must be exactly 13 digits."
     
+    for i in isbn:
+        if not i.isdigit():
+            return False, "ISBN must be digits."
+    
     if not isinstance(total_copies, int) or total_copies <= 0:
         return False, "Total copies must be a positive integer."
     
@@ -84,7 +88,7 @@ def borrow_book_by_patron(patron_id: str, book_id: int) -> Tuple[bool, str]:
     # Check patron's current borrowed books count
     current_borrowed = get_patron_borrow_count(patron_id)
     
-    if current_borrowed > 5:
+    if current_borrowed >= 5:
         return False, "You have reached the maximum borrowing limit of 5 books."
     
     # Create borrow record

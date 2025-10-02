@@ -33,3 +33,23 @@ def test_add_book_non_positive_total_copies():
     success, message = add_book_to_catalog("Can he fix it", "Bob the Builder", "3333333333333", 0)
     assert success is False
     assert "positive integer" in message.lower()
+    
+def test_add_book_invalid_isbn_non_digit():
+    """ISBN has non-digit characters."""
+    success, msg = add_book_to_catalog("Book Title", "Author Name", "12345abc90123", 5)
+    assert success is False
+    assert "isbn must be digits" in msg.lower()
+
+def test_add_book_title_too_long():
+    """Title exceeds 200 characters."""
+    long_title = "A" * 201
+    success, msg = add_book_to_catalog(long_title, "Author Name", "1234567890123", 5)
+    assert success is False
+    assert "title must be less than 200 characters" in msg.lower()
+
+def test_add_book_author_too_long():
+    """Author exceeds 100 characters."""
+    long_author = "B" * 101
+    success, msg = add_book_to_catalog("Book Title", long_author, "1234567890123", 5)
+    assert success is False
+    assert "author must be less than 100 characters" in msg.lower()

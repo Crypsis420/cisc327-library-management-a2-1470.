@@ -31,3 +31,9 @@ def test_search_isbn_exact_match_only():
 def test_search_invalid_type_or_empty_term_returns_empty():
     assert search_books_in_catalog("anything", "publisher") == []
     assert search_books_in_catalog("   ", "title") == []
+    
+def test_search_incomplete_isbn_returns_error():
+    """Search with incomplete ISBN should return error."""
+    result = search_books_in_catalog("123456", "isbn")
+    assert result == []
+    
