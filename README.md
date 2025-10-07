@@ -1,3 +1,6 @@
+![CI](https://github.com/Crypsis420/cisc327-library-management-a2-1470/actions/workflows/ci.yml/badge.svg)
+
+
 # Library Management System - Flask Web Application with SQLite
 
 ## Overview
