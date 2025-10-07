@@ -1,6 +1,6 @@
 # Library Management System - Flask Web Application with SQLite
-[![codecov](https://codecov.io/gh/Crypsis420/cisc327-library-management-a2-1470.
-/branch/main/graph/badge.svg)](https://codecov.io/gh/Crypsis420/cisc327-library-management-a2-1470.
+[![codecov](https://codecov.io/gh/Crypsis420/cisc327-library-management-a2-1470
+/branch/main/graph/badge.svg)](https://codecov.io/gh/Crypsis420/cisc327-library-management-a2-1470
 )
 
 ## Overview
