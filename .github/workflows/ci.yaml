@@ -32,3 +32,8 @@ jobs:
       - name: Run tests
         run: |
           python -m pytest -q tests
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.2bc640ee-9438-46c4-b5b2-0e22e9ca2d35}}
