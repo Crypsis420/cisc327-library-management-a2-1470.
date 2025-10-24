@@ -1,5 +1,5 @@
 from database import get_db_connection
-from library_service import search_books_in_catalog
+from services.library_service import search_books_in_catalog
 import pytest
 
 def _insert_book(title, author, isbn):

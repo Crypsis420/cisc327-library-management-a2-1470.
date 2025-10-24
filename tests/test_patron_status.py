@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from database import get_db_connection
-from library_service import get_patron_status_report
+from services.library_service import get_patron_status_report
 import pytest
 
 def _insert_book(title, author, isbn):

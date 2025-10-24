@@ -1,4 +1,4 @@
-from library_service import add_book_to_catalog
+from services.library_service import add_book_to_catalog
 from database import get_book_by_isbn
 import pytest
 

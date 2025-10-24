@@ -3,7 +3,7 @@ Borrowing Routes - Book borrowing and returning endpoints
 """
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from library_service import borrow_book_by_patron, return_book_by_patron
+from services.library_service import borrow_book_by_patron, return_book_by_patron
 
 borrowing_bp = Blueprint('borrowing', __name__)
 

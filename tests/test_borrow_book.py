@@ -1,4 +1,4 @@
-from library_service import borrow_book_by_patron
+from services.library_service import borrow_book_by_patron
 from database import get_db_connection
 import pytest
 
