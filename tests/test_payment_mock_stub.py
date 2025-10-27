@@ -2,6 +2,48 @@ from unittest.mock import Mock
 from services import library_service
 from services.payment_service import PaymentGateway
 
+def test_pay_late_fees_calc_fail_skips_gateway(mocker):
+    # Stub fee calc to return bad payload
+    mocker.patch(
+        "services.library_service.calculate_late_fee_for_book",
+        return_value={"status": "Overdue"}  # missing fee_amount
+    )
+    # Stub book just so we know it would have existed if needed
+    mocker.patch(
+        "services.library_service.get_book_by_id",
+        return_value={"id": 42, "title": "Any", "isbn": "9"*13},
+    )
+
+    gateway = Mock(spec=PaymentGateway)
+
+    ok, msg, txn = library_service.pay_late_fees("123456", 42, gateway)
+
+    assert ok is False
+    assert txn is None
+    assert "unable to calculate" in msg.lower()
+    gateway.process_payment.assert_not_called()
+
+
+def test_pay_late_fees_book_not_found_skips_gateway(mocker):
+    # Valid calc with positive fee
+    mocker.patch(
+        "services.library_service.calculate_late_fee_for_book",
+        return_value={"fee_amount": 2.50, "days_overdue": 5, "status": "Overdue"},
+    )
+    # Book not found stub
+    mocker.patch(
+        "services.library_service.get_book_by_id",
+        return_value=None,
+    )
+
+    gateway = Mock(spec=PaymentGateway)
+
+    ok, msg, txn = library_service.pay_late_fees("123456", 99, gateway)
+    assert ok is False
+    assert txn is None
+    assert "book not found" in msg.lower()
+    gateway.process_payment.assert_not_called()
+    
 def test_refund_success_calls_gateway_with_correct_args():
     gateway = Mock(spec=PaymentGateway)
     # assume refund returns (success, message)
@@ -163,3 +205,26 @@ def test_pay_late_fees_gateway_exception(mocker):
     gateway.process_payment.assert_called_with(
         patron_id="123456", amount=7.25, description="Late fees for 'Book'"
     )
+    
+def test_refund_gateway_declined_returns_failure():
+    gateway = Mock(spec=PaymentGateway)
+    # Mock a decline from gateway
+    gateway.refund_payment.return_value = (False, "not_refundable")
+
+    ok, msg = library_service.refund_late_fee_payment("txn_abc", 4.00, gateway)
+
+    assert ok is False
+    assert "not_refundable" in msg.lower()
+    gateway.refund_payment.assert_called_once_with("txn_abc", 4.00)
+
+
+def test_refund_gateway_exception_handled():
+    gateway = Mock(spec=PaymentGateway)
+    gateway.refund_payment.side_effect = RuntimeError("gateway down")
+
+    ok, msg = library_service.refund_late_fee_payment("txn_abc", 4.00, gateway)
+
+    assert ok is False
+    assert "gateway down" in msg.lower() or "error" in msg.lower()
+    gateway.refund_payment.assert_called_once_with("txn_abc", 4.00)
+    
