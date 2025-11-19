@@ -1,7 +1,7 @@
 # Library Management System - Flask Web Application with SQLite
 
-![Library Test](https://github.com/Crypsis420/cisc327-library-management-a2-1470./actions/workflows/ci.yaml/badge.svg)
-[![codecov](https://codecov.io/github/Crypsis420/cisc327-library-management-a2-1470./branch/main/graph/badge.svg?token=YMNH3JM3D8)](https://codecov.io/github/Crypsis420/cisc327-library-management-a2-1470.)
+<!-- ![Library Test](https://github.com/Crypsis420/cisc327-library-management-a2-1470./actions/workflows/ci.yaml/badge.svg)
+[![codecov](https://codecov.io/github/Crypsis420/cisc327-library-management-a2-1470./branch/main/graph/badge.svg?token=YMNH3JM3D8)](https://codecov.io/github/Crypsis420/cisc327-library-management-a2-1470.) -->
 
 ## Overview
 
