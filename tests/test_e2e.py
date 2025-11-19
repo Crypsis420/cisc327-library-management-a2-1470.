@@ -63,7 +63,6 @@ def _find_row_by_title(driver, title: str):
             return r
     return None
 
-@mark.order(1)
 def test_add_book_shows_in_catalog():
     with run_app():
         driver = _new_driver()
@@ -103,7 +102,6 @@ def test_add_book_shows_in_catalog():
         finally:
             driver.quit()
 
-@mark.order(2)
 def test_borrow_book_shows_confirmation():
     with run_app():
         driver = _new_driver()
