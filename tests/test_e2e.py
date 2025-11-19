@@ -1,6 +1,4 @@
-"""
-NOTE: Before running these tests, start the Flask app in a separate terminal as this is not headless: python app.py
-"""
+
 
 from random import randint
 from selenium import webdriver
